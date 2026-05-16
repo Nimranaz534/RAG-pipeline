@@ -1,0 +1,140 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -144,
+        -64
+      ],
+      "id": "3e293993-dcc1-4424-ad52-75486b6a16dc",
+      "name": "When chat message received",
+      "webhookId": "034cd9d0-30e7-4d9d-8cb4-ecb4a0224853"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a research agent that will go in depth the topic that has been given in chat."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        96,
+        -64
+      ],
+      "id": "178de08c-5c3c-4688-8e52-e45d9acd4dcb",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -128,
+        176
+      ],
+      "id": "e2e3f16d-a7be-43d8-9454-e47ea6c09989",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "s8e9UkR5N1OaGHXL",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        192,
+        176
+      ],
+      "id": "55ce66db-3bf0-4a27-bef4-be760136b8ce",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        192
+      ],
+      "id": "52c36993-e5f4-4773-819d-f5b0f6d28b19",
+      "name": "Think"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6d76a092-8818-4878-814d-0cfd0be2c934",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "67b3e4a7b8351e8d1dcc9b73df7f07874ca3abbed3422fb89cbf6e0a7e68ea73"
+  },
+  "id": "01hyXCFd8THsrDpw",
+  "tags": []
+}
